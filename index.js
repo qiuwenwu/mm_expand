@@ -1,7 +1,7 @@
 /**
  * @fileOverview JavaScript拓展函数
  * @author <a href="http://qww.elins.cn">邱文武</a>
- * @version 1.2
+ * @version 1.2.1
  */
 const {
 	j2xParser,
