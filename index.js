@@ -1487,7 +1487,11 @@ if (typeof($) === "undefined") {
 	 */
 	Array.prototype.getVal = function(key, query) {
 		var obj = this.getObj(query);
-		return obj[key];
+		if (obj) {
+			return obj[key];
+		} else {
+			return null;
+		}
 	};
 	/**
 	 * @description 获取符合条件的数组对象
