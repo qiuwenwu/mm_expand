@@ -1143,8 +1143,16 @@ if (typeof($) === "undefined") {
 			} else {
 				file = f.replace('./', runPath);
 			}
-		} else if (f.startWith('/')) {
-			file = runPath + f;
+		} 
+		else if (f.startWith('../')) {
+			if (dir) {
+				file = dir.fullname() + f;
+			} else {
+				file = runPath + f;
+			}
+		}
+		else if (f.startWith('/') && !f.startWith(runPath)) {
+			file = runPath + f.substring(0);
 		}
 		file = join(file, '');
 		if (file.indexOf('.') === -1 && !file.endsWith(slash)) {
