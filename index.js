@@ -1616,6 +1616,22 @@ if (typeof($) === "undefined") {
 		return this;
 	};
 	/**
+	 * @description 给数组添加一个对象或列表
+	 * @param {Object|Array} objOrList 对象或数组
+	 * @param {Object} query 查询条件
+	 * @return {Array} 对象数组
+	 */
+	Array.prototype.add = function(objOrList, query) {
+		if(Array.isArray(objOrList))
+		{
+			this.addList(objOrList, query);
+		}
+		else {
+			this.addObj(objOrList, query);
+		}
+		return this;
+	};
+	/**
 	 * @description 删除数组中对象的属性
 	 * @param {String} key 对象属性键
 	 * @param {Object} query 查询条件
