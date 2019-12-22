@@ -91,7 +91,7 @@ var drive = {
 // 	config: "param"
 // };
 // var ret = $.get(drive, query5);
-// 	console.log($.toJson(ret, true));
+// 	console.log(JSON.stringify(ret, true));
 // }
 // test_get();
 
@@ -113,7 +113,7 @@ var drive = {
 // 	desc: "这是添加哦",
 // };
 // $.add(drive, ["config", "param", "add"], value2);
-// console.log($.toJson(drive, true));
+// console.log(JSON.stringify(drive, true));
 
 // 	var value2 = {
 // 		add: {
@@ -128,7 +128,7 @@ var drive = {
 // 		set: true
 // 	}], value2);
 
-// 	console.log($.toJson(drive, true));
+// 	console.log(JSON.stringify(drive, true));
 // }
 
 // test_add();
@@ -153,7 +153,7 @@ var drive = {
 // 	desc: "这是修改哦333",
 // };
 // $.set(drive, ["config", "param", "set"], value2);
-// console.log($.toJson(drive, true));
+// console.log(JSON.stringify(drive, true));
 
 // var value2 = {
 // 	add: {
@@ -170,7 +170,7 @@ var drive = {
 // 	set: true
 // }], value2);
 
-// 	console.log($.toJson(drive, true));
+// 	console.log(JSON.stringify(drive, true));
 // }
 
 
@@ -192,7 +192,7 @@ function test_del() {
 	// $.del(drive, ["config", "param"], { add: {"desc": true }, set: "desc" });
 	// $.del(drive, "config" , { config: "sort"});
 	$.del(drive, { config: "param" }, { config: { param: "add" } });
-	console.log($.toJson(drive, true));
+	console.log(JSON.stringify(drive, true));
 	
 	var arr = ["123","test"];
 	var arr2 = ["1234","test"];
