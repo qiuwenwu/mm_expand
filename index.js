@@ -100,7 +100,7 @@ function as(obj, query, all) {
 		bl = obj === query;
 	} else if (obj.constructor == Array) {
 		// 如果都是数组
-		const len = obj.length;
+		var len = obj.length;
 		if (all && len !== query.length) {
 			// 要求完全一致 而长度不一致 说明不相似
 			bl = false;
@@ -787,7 +787,7 @@ if (typeof($) === "undefined") {
 	String.prototype.pinyinS = function() {
 		var arr = pinyin(this);
 		var str = "";
-		const len = arr.length;
+		var len = arr.length;
 		for (var i = 0; i < len; i++) {
 			var ar = arr[i];
 			if (ar.length > 0) {
@@ -1290,7 +1290,7 @@ if (typeof($) === "undefined") {
 	Array.prototype.copy = function(has) {
 		var arr_new = [];
 		var arr = this;
-		const len = arr.length;
+		var len = arr.length;
 		if (has) {
 			for (var i = 0; i < len; i++) {
 				var o = arr[i];
@@ -1310,7 +1310,7 @@ if (typeof($) === "undefined") {
 	 * @param {Function(Object):Boolean} func 函数名
 	 */
 	Array.prototype.func = function(func) {
-		const len = this.length;
+		var len = this.length;
 		for (var i = 0; i < len; i++) {
 			if (func(this[i])) {
 				break;
@@ -1326,7 +1326,7 @@ if (typeof($) === "undefined") {
 	Array.prototype.toStr = function(splitStr, key) {
 		var arr = this;
 		var str = "";
-		const len = arr.length;
+		var len = arr.length;
 		if (key) {
 			for (var i = 0; i < len; i++) {
 				var o = arr[i];
@@ -1357,7 +1357,7 @@ if (typeof($) === "undefined") {
 	 * @return {Array} 删除后的数组
 	 */
 	Array.prototype.set = function(query, obj) {
-		const len = this.length;
+		var len = this.length;
 		for (var i = 0; i < len; i++) {
 			var o = this[i];
 			for (var k in query) {
@@ -1425,7 +1425,7 @@ if (typeof($) === "undefined") {
 	Array.prototype.toArr = function(key) {
 		var arr = [];
 		var lt = this;
-		const len = lt.length;
+		var len = lt.length;
 		for (var i = 0; i < len; i++) {
 			var o = lt[i];
 			arr.push(o[key]);
@@ -1441,7 +1441,7 @@ if (typeof($) === "undefined") {
 	 */
 	Array.prototype.get = function(query, end) {
 		if (query) {
-			const len = this.length;
+			var len = this.length;
 			if (end) {
 				var obj;
 				for (var i = 0; i < len; i++) {
@@ -1482,7 +1482,7 @@ if (typeof($) === "undefined") {
 	Array.prototype.getObj = function(query) {
 		var obj;
 		if (query) {
-			const len = this.length;
+			var len = this.length;
 			for (var i = 0; i < len; i++) {
 				var o = this[i];
 				if (as(o, query)) {
@@ -1515,7 +1515,7 @@ if (typeof($) === "undefined") {
 	Array.prototype.getList = function(query) {
 		var arr = [];
 		if (query) {
-			const len = this.length;
+			var len = this.length;
 			for (var i = 0; i < len; i++) {
 				var o = this[i];
 				if (as(o, query)) {
@@ -1535,7 +1535,7 @@ if (typeof($) === "undefined") {
 	 */
 	Array.prototype.getArr = function(key, query) {
 		var arr = [];
-		const len = this.length;
+		var len = this.length;
 		if (query) {
 			for (var i = 0; i < len; i++) {
 				var o = this[i];
@@ -1560,7 +1560,7 @@ if (typeof($) === "undefined") {
 	 * @return {Array} 对象数组
 	 */
 	Array.prototype.addVal = function(key, value, query, end) {
-		const len = this.length;
+		var len = this.length;
 		if (query) {
 			for (var i = 0; i < len; i++) {
 				var o = this[i];
@@ -1594,7 +1594,7 @@ if (typeof($) === "undefined") {
 	 */
 	Array.prototype.addObj = function(obj, query) {
 		var has = false;
-		const len = this.length;
+		var len = this.length;
 		if (query) {
 			for (var i = 0; i < len; i++) {
 				if (as(this[i], query)) {
@@ -1623,7 +1623,7 @@ if (typeof($) === "undefined") {
 	 * @return {Array} 对象数组
 	 */
 	Array.prototype.addList = function(list, query) {
-		const len = list.length;
+		var len = list.length;
 		for (var i = 0; i < len; i++) {
 			this.addObj(list[i], query);
 		}
@@ -1653,7 +1653,7 @@ if (typeof($) === "undefined") {
 	 * @return {Array} 对象数组
 	 */
 	Array.prototype.delVal = function(key, query, end) {
-		const len = this.length;
+		var len = this.length;
 		if (query) {
 			if (end) {
 				for (var i = 0; i < len; i++) {
@@ -1692,7 +1692,7 @@ if (typeof($) === "undefined") {
 	 */
 	Array.prototype.del = function(query, end) {
 		var bl = false;
-		const len = this.length;
+		var len = this.length;
 		if (end) {
 			if (query) {
 				for (var i = 0; i < len; i++) {
@@ -1729,7 +1729,7 @@ if (typeof($) === "undefined") {
 	 * @return {Array} 对象数组
 	 */
 	Array.prototype.delList = function(list, end) {
-		const len = list.length;
+		var len = list.length;
 		for (var i = 0; i < len; i++) {
 			this.del(list[i], end);
 		}
@@ -1744,7 +1744,7 @@ if (typeof($) === "undefined") {
 	 * @return {Array} 对象数组
 	 */
 	Array.prototype.setVal = function(key, value, query, end) {
-		const len = this.length;
+		var len = this.length;
 		if (query) {
 			for (var i = 0; i < len; i++) {
 				if (as(this[i], query)) {
@@ -1773,7 +1773,7 @@ if (typeof($) === "undefined") {
 	 */
 	Array.prototype.setObj = function(obj, query, end) {
 		if (query) {
-			const len = this.length;
+			var len = this.length;
 			for (var i = 0; i < len; i++) {
 				var o = this[i];
 				if (as(o, query)) {
@@ -1794,7 +1794,7 @@ if (typeof($) === "undefined") {
 	 * @return {Array} 对象数组
 	 */
 	Array.prototype.setList = function(list, query, end) {
-		const len = this.length;
+		var len = this.length;
 		for (var i = 0; i < len; i++) {
 			this.setObj(this[i], query, end);
 		}
@@ -1879,7 +1879,7 @@ if (typeof($) === "undefined") {
 	 */
 	Array.prototype.has = function(query) {
 		var has = false;
-		const len = this.length;
+		var len = this.length;
 		for (var i = 0; i < len; i++) {
 			if (as(this[i], query)) {
 				has = true;
@@ -1897,7 +1897,7 @@ if (typeof($) === "undefined") {
 	 */
 	Array.prototype.getMatch = function(str, key) {
 		var obj;
-		const len = this.length;
+		var len = this.length;
 		if (key) {
 			for (var i = 0; i < len; i++) {
 				if (str.has(this[i][key])) {
@@ -1953,7 +1953,7 @@ if (typeof($) === "undefined") {
 	 */
 	function eachDir(list, dir, keyword) {
 		var items = readdirSync(dir);
-		const len = items.length;
+		var len = items.length;
 		if (keyword) {
 			for (var i = 0; i < len; i++) {
 				var name = items[i];
@@ -1986,7 +1986,7 @@ if (typeof($) === "undefined") {
 	 */
 	function getDir(list, dir, keyword) {
 		var items = readdirSync(dir);
-		const len = items.length;
+		var len = items.length;
 		if (keyword) {
 			for (var i = 0; i < len; i++) {
 				var name = items[i];
@@ -2017,7 +2017,7 @@ if (typeof($) === "undefined") {
 	 */
 	function getFile(list, dir, keyword) {
 		var items = readdirSync(dir);
-		const len = items.length;
+		var len = items.length;
 		if (keyword) {
 			for (var i = 0; i < len; i++) {
 				var name = items[i];
@@ -2086,7 +2086,7 @@ if (typeof($) === "undefined") {
 			var dirs = [];
 			// 获取相关目录
 			eachDir(dirs, dir.fullname(), keyword_dir);
-			const len = dirs.length;
+			var len = dirs.length;
 			for (var i = 0; i < len; i++) {
 				getFile(list, dirs[i], keyword);
 			}
@@ -2163,7 +2163,7 @@ if (typeof($) === "undefined") {
 		 * @description 执行
 		 */
 		Timer.prototype.run = async function() {
-			const len = list.length;
+			var len = list.length;
 			for (var i = 0; i < len; i++) {
 				var run = list[i].run;
 				if (run) {
@@ -2257,7 +2257,7 @@ if (typeof($) === "undefined") {
 		if (Array.isArray(o)) {
 			o.clear();
 		} else if (Array.isArray(item)) {
-			const len = item.length;
+			var len = item.length;
 			for (var i = 0; i < len; i++) {
 				var val = item[i];
 				if (typeof(val) === "object") {
@@ -2318,7 +2318,7 @@ if (typeof($) === "undefined") {
 	function arrToObj(arr) {
 		var obj = {};
 		var ret = obj;
-		const len = arr.length;
+		var len = arr.length;
 		for (var i = 0; i < len; i++) {
 			var k = arr[i];
 			if (typeof(k) == "object") {
@@ -2351,7 +2351,7 @@ if (typeof($) === "undefined") {
 			// 只有非数组的对象才进行操作
 			if (Array.isArray(query)) {
 				var ret = obj;
-				const len = query.length;
+				var len = query.length;
 				// 如果是数字则循环数组
 				for (var i = 0; i < len; i++) {
 					var o = query[i];
