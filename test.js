@@ -7,7 +7,6 @@ require('./index.js');
 // console.log("./".fullname(__dirname));
 // console.log("/".fullname());
 
-
 var drive = {
 	name: "test",
 	config: {
@@ -42,6 +41,10 @@ var drive = {
 		]
 	}
 };
+
+"./test/dd/local.json".addDir()
+
+// console.log($.toJson("./local.json".loadJson()));
 
 // function test_get() {
 // var query = {
@@ -177,26 +180,26 @@ var drive = {
 // test_add();
 
 
-function test_del() {
-	// $.del(drive, null, null);
+// function test_del() {
+// 	// $.del(drive, null, null);
 
-	// $.del(drive, ["config", "param", "set"], null);
+// 	// $.del(drive, ["config", "param", "set"], null);
 	
-	// $.del(drive, ["config", "param", "set"], ["desc", "query"]);
-	// var ret = $.del(drive, ["config", "param", {
-	// 	add: true,
-	// 	set: true
-	// }], null);
+// 	// $.del(drive, ["config", "param", "set"], ["desc", "query"]);
+// 	// var ret = $.del(drive, ["config", "param", {
+// 	// 	add: true,
+// 	// 	set: true
+// 	// }], null);
 
-	// $.del(drive, ["config", "param"], { add: "query", set: "desc" });
-	// $.del(drive, ["config", "param"], { add: {"desc": true }, set: "desc" });
-	// $.del(drive, "config" , { config: "sort"});
-	$.del(drive, { config: "param" }, { config: { param: "add" } });
-	console.log(JSON.stringify(drive, true));
+// 	// $.del(drive, ["config", "param"], { add: "query", set: "desc" });
+// 	// $.del(drive, ["config", "param"], { add: {"desc": true }, set: "desc" });
+// 	// $.del(drive, "config" , { config: "sort"});
+// 	$.del(drive, { config: "param" }, { config: { param: "add" } });
+// 	console.log(JSON.stringify(drive, true));
 	
-	var arr = ["123","test"];
-	var arr2 = ["1234","test"];
-	console.log(arr.add(arr2));
-}
+// 	var arr = ["123","test"];
+// 	var arr2 = ["1234","test"];
+// 	console.log(arr.add(arr2));
+// }
 
-test_del();
+// test_del();
