@@ -2445,7 +2445,7 @@ if (typeof($) === "undefined") {
 	 * @param {String} key 键 多级对象用.分隔
 	 * @param {Object} value 值，如果不传为查询，传为修改
 	 */
-	function obj_for(obj, key, value) {
+	function prop(obj, key, value) {
 		if(!key)
 		{
 			return undefined;
@@ -2463,7 +2463,7 @@ if (typeof($) === "undefined") {
 		}
 		else if (typeof(o) == 'object') {
 			if(len > 1){
-				return obj_for(o, keys.splice(1, len).join('.'), value);
+				return prop(o, keys.splice(1, len).join('.'), value);
 			}
 		} else if (len > 1) {
 			return undefined;
@@ -2471,5 +2471,5 @@ if (typeof($) === "undefined") {
 		return o;
 	}
 	
-	$.obj = obj_for;
+	$.prop = prop;
 })();
