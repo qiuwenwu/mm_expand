@@ -1321,6 +1321,62 @@ if (typeof($) === "undefined") {
 /* == 数组原型函数 == */
 (function() {
 	/**
+	 * 列表转树形列表
+	 * @param {Array} list 列表
+	 * @param {String} id ID字段
+	 * @param {Number} value ID对应值
+	 * @param {String} father_id 上级ID字段
+	 * @param {String} sub 子类字段
+	 * @return {Array} 返回属性值
+	 */
+	function toTree(list, id, value = 0, father_id = 'father_id', sub = 'sub') {
+		var arr = [];
+		for (var i = 0; i < list.length; i++) {
+			var o = list[i];
+			if (o[father_id] === value) {
+				o[sub] = toTree(list, id, o[id]);
+				arr.push(o);
+			}
+		}
+		return arr;
+	}
+	
+	function toList(list, sub = 'sub', arr = []){
+		for(var i = 0; i < list.length; i++){
+			var o = list[i];
+			var lt = o[sub];
+			delete o[sub];
+			arr.push(o);
+			if(lt && lt.length > 0){
+				toList(lt, sub, arr);
+			}
+		}
+		return arr;
+	}
+	
+	/**
+	 * 列表转树形列表
+	 * @param {String} id ID字段
+	 * @param {Number} value ID对应值
+	 * @param {String} father_id 上级ID字段
+	 * @param {String} sub 子类字段
+	 * @return {Array} 返回数组
+	 */
+	Array.prototype.toTree = function(id, value = 0, father_id = 'father_id', sub = 'sub') {
+		return toTree(this, id, value, father_id, sub);
+	};
+	
+	/**
+	 * 列表转树形列表
+	 * @param {String} sub 子类字段
+	 * @param {Array} arr 结果数组
+	 * @return {Array} 返回数组
+	 */
+	Array.prototype.toList = function (sub = 'sub', arr = []){
+		return toList(this, sub, arr);
+	};
+	
+	/**
 	 * @description 拷贝对象
 	 * @param {Boolean} has 是否非空拷贝，如果含有数据才拷贝，不含数据不拷贝
 	 * @return {Array} 新数组
