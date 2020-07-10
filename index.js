@@ -1122,21 +1122,22 @@ if (typeof($) === "undefined") {
 		var template = this + '';
 		let evalExpr = /<%=(.+?)%>/g;
 		let expr = /<%([\s\S]+?)%>/g;
-		
+
 		template = template
-		  .replace(/%>\n\s+/g, '%>')
-		  .replace(evalExpr, '`); \n  echo( $1 ); \n  echo(`')
-		  .replace(expr, '`); \n $1 \n  echo(`');
-		
+			.replace(/%>\n\s+/g, '%>')
+			.replace(evalExpr, '`); \n  echo( $1 ); \n  echo(`')
+			.replace(expr, '`); \n $1 \n  echo(`');
+
 		template = 'echo(`' + template + '`);';
-		
+
 		function render() {
 			if (obj) {
 				for (var k in obj) {
 					this[k] = obj[k];
 				}
 			}
-			return eval(`(function parse(data){
+			return eval(
+				`(function parse(data){
             var output = "";
             function echo(html){
                 if(typeof html === "object"){
@@ -1148,7 +1149,8 @@ if (typeof($) === "undefined") {
             }
             ${template}
             return output;
-        })`);
+        })`
+			);
 		}
 		return render()(obj);
 	};
@@ -1307,7 +1309,7 @@ if (typeof($) === "undefined") {
 			dir = dir + slash + arr[i];
 		}
 	};
-	
+
 	/**
 	 * @description 复制文件
 	 * @param {String} file 保存路径
@@ -1340,20 +1342,20 @@ if (typeof($) === "undefined") {
 		}
 		return arr;
 	}
-	
-	function toList(list, sub = 'sub', arr = []){
-		for(var i = 0; i < list.length; i++){
+
+	function toList(list, sub = 'sub', arr = []) {
+		for (var i = 0; i < list.length; i++) {
 			var o = list[i];
 			var lt = o[sub];
 			delete o[sub];
 			arr.push(o);
-			if(lt && lt.length > 0){
+			if (lt && lt.length > 0) {
 				toList(lt, sub, arr);
 			}
 		}
 		return arr;
 	}
-	
+
 	/**
 	 * 列表转树形列表
 	 * @param {String} id ID字段
@@ -1365,17 +1367,17 @@ if (typeof($) === "undefined") {
 	Array.prototype.toTree = function(id, value = 0, father_id = 'father_id', sub = 'sub') {
 		return toTree(this, id, value, father_id, sub);
 	};
-	
+
 	/**
 	 * 列表转树形列表
 	 * @param {String} sub 子类字段
 	 * @param {Array} arr 结果数组
 	 * @return {Array} 返回数组
 	 */
-	Array.prototype.toList = function (sub = 'sub', arr = []){
+	Array.prototype.toList = function(sub = 'sub', arr = []) {
 		return toList(this, sub, arr);
 	};
-	
+
 	/**
 	 * @description 拷贝对象
 	 * @param {Boolean} has 是否非空拷贝，如果含有数据才拷贝，不含数据不拷贝
@@ -1709,7 +1711,7 @@ if (typeof($) === "undefined") {
 		}
 		return this;
 	};
-	
+
 	/**
 	 * @description 给数组添加多个对象
 	 * @param {Array} list 数组
@@ -1730,11 +1732,9 @@ if (typeof($) === "undefined") {
 	 * @return {Array} 对象数组
 	 */
 	Array.prototype.add = function(objOrList, query) {
-		if(Array.isArray(objOrList))
-		{
+		if (Array.isArray(objOrList)) {
 			this.addList(objOrList, query);
-		}
-		else {
+		} else {
 			this.addObj(objOrList, query);
 		}
 		return this;
@@ -1777,7 +1777,7 @@ if (typeof($) === "undefined") {
 		}
 		return this;
 	};
-	
+
 	/**
 	 * @description 删除数组中的对象
 	 * @param {Object} query 查询条件
@@ -2494,7 +2494,7 @@ if (typeof($) === "undefined") {
 		return ret;
 	};
 	$.get = get;
-	
+
 	/**
 	 * 遍历读写对象
 	 * @param {Object} obj
@@ -2502,8 +2502,7 @@ if (typeof($) === "undefined") {
 	 * @param {Object} value 值，如果不传为查询，传为修改
 	 */
 	function prop(obj, key, value) {
-		if(!key)
-		{
+		if (!key) {
 			return undefined;
 		}
 		var keys = key.split('.');
@@ -2513,12 +2512,11 @@ if (typeof($) === "undefined") {
 		}
 		var k = keys[0];
 		var o = obj[k];
-		if(len == 1 && value !== undefined){
+		if (len == 1 && value !== undefined) {
 			obj[k] = value;
 			o = value;
-		}
-		else if (typeof(o) == 'object') {
-			if(len > 1){
+		} else if (typeof(o) == 'object') {
+			if (len > 1) {
 				return prop(o, keys.splice(1, len).join('.'), value);
 			}
 		} else if (len > 1) {
@@ -2526,6 +2524,6 @@ if (typeof($) === "undefined") {
 		}
 		return o;
 	}
-	
+
 	$.prop = prop;
 })();
