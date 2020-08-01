@@ -42,10 +42,11 @@ var drive = {
 	}
 };
 
-"./test/dd/local.json".addDir()
+"./test/dd/local.json".addDir();
+console.log("./test/dd/local.json".saveJson(drive));
+console.log($.toJson("./test/dd/local.json".loadJson()));
 
-// console.log($.toJson("./local.json".loadJson()));
-
+console.log($.dir.getAll('./'));
 // function test_get() {
 // var query = {
 // 	config: {

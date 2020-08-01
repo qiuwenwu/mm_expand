@@ -228,7 +228,6 @@ function newSort(key) {
  * @param {Boolean} bl 是否补充没有的对象
  * @return {Object} 新对象
  */
-
 function push(objA, objB, bl) {
 	if (!objA || !objB) {
 		return;
@@ -418,10 +417,11 @@ function toUrl(obj, url) {
  * @description 保存为json格式文件
  * @param {Object} obj 被保存的对象
  * @param {String} file 保存文件名
+ * @param {Boolean} format 是否格式化
  * @return {Boolean} 保存结果
  */
-function saveJson(obj, file) {
-	return file.saveText(toJson(obj));
+function saveJson(obj, file, format) {
+	return file.saveText(toJson(obj, format));
 };
 
 /**
@@ -1156,26 +1156,26 @@ if (typeof($) === "undefined") {
 	};
 	/**
 	 * @description 补全路径
-	 * @param {String} dir
+	 * @param {String} dir 
 	 * @return {String} 全路径
 	 */
 	String.prototype.fullname = function(dir) {
 		var file = this + '';
-		var f = file.replace(slash, '/');
-		if (f.startWith('./')) {
+		file = file.replace(/\//g, slash);
+		if (file.startWith('.' + slash)) {
 			if (dir) {
-				file = f.replace('./', dir.fullname());
+				file = file.replace('.' + slash, dir.fullname());
 			} else {
-				file = f.replace('./', $.runPath);
+				file = file.replace('.' + slash, $.runPath);
 			}
-		} else if (f.startWith('../')) {
+		} else if (file.startWith('..' + slash)) {
 			if (dir) {
-				file = dir.fullname() + f;
+				file = dir.fullname() + file;
 			} else {
-				file = $.runPath + f;
+				file = $.runPath + file;
 			}
-		} else if (f.startWith('/') && !f.startWith($.runPath)) {
-			file = $.runPath + f.substring(0);
+		} else if (file.startWith(slash) && !file.startWith($.runPath)) {
+			file = $.runPath + file.substring(0);
 		}
 		file = join(file, '');
 		if (file.indexOf('.') === -1 && !file.endsWith(slash)) {
@@ -1183,6 +1183,7 @@ if (typeof($) === "undefined") {
 		}
 		return file;
 	};
+
 	/**
 	 * @description 取路径
 	 * @return {String} 字符串
@@ -1212,6 +1213,17 @@ if (typeof($) === "undefined") {
 	String.prototype.saveText = function(text) {
 		return writeFileSync(this.fullname(), text);
 	};
+
+	/**
+	 * @description 保存为JSON格式文件
+	 * @param {Object} obj 被保存的内容
+	 * @param {Boolean} format 是否格式化
+	 * @return {Boolean} 保存成功返回true, 失败返回false
+	 */
+	String.prototype.saveJson = function(obj, format = true) {
+		return writeFileSync(this.fullname(), toJson(obj, format));
+	};
+
 	/**
 	 * @description 加载文件
 	 * @param {String} dir 所在目录
@@ -1299,14 +1311,13 @@ if (typeof($) === "undefined") {
 	 * @param {String} dir 文件路径
 	 */
 	String.prototype.addDir = function(dirbase) {
-		var dir = this + '';
-		var arr = dir.fullname(dirbase || $.runPath).split(slash);
-		var dir = arr[0];
-		for (var i = 1; i < arr.length; i++) {
+		var arr = (this + '').fullname().dirname().split(slash);
+		var dir = '';
+		for (var i = 0; i < arr.length; i++) {
+			dir += arr[i] + slash;
 			if (!existsSync(dir)) {
 				mkdirSync(dir);
 			}
-			dir = dir + slash + arr[i];
 		}
 	};
 
@@ -2056,7 +2067,7 @@ if (typeof($) === "undefined") {
 				if (!isFile(f)) {
 					// 判断是否包含关键词
 					if (name.has(keyword)) {
-						list.push(join(f, '/'));
+						list.push(join(f, slash));
 					}
 					eachDir(list, f, keyword);
 				}
@@ -2066,7 +2077,7 @@ if (typeof($) === "undefined") {
 				var f = join(dir, items[i]);
 				// 识别是否为目录
 				if (!isFile(f)) {
-					list.push(join(f, '/'));
+					list.push(join(f, slash));
 					eachDir(list, f, keyword);
 				}
 			}
@@ -2089,7 +2100,7 @@ if (typeof($) === "undefined") {
 				if (!isFile(f)) {
 					// 判断关键词是否相等
 					if (name.has(keyword)) {
-						list.push(join(f, '/'));
+						list.push(join(f, slash));
 					}
 				}
 			}
@@ -2098,7 +2109,7 @@ if (typeof($) === "undefined") {
 				var f = join(dir, items[i]);
 				// 识别是否为目录
 				if (!isFile(f)) {
-					list.push(join(f, '/'));
+					list.push(join(f, slash));
 				}
 			}
 		}
