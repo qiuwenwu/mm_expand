@@ -1311,7 +1311,11 @@ if (typeof($) === "undefined") {
 	 * @param {String} dir 文件路径
 	 */
 	String.prototype.addDir = function(dirbase) {
-		var arr = (this + '').fullname().dirname().split(slash);
+		var d = (this + '').fullname();
+		if (this.indexOf('.') !== -1) {
+			d = d.dirname()
+		}
+		var arr = d.split(slash);
 		var dir = '';
 		for (var i = 0; i < arr.length; i++) {
 			dir += arr[i] + slash;
