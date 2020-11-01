@@ -25,7 +25,7 @@ require('./index.js');
 // async function test_cmd(){
 // 	$.set_cmd('config.name', '你好');
 // 	console.log(await $.cmd('config.name'));
-	
+
 // 	$.set_cmd('test', {});
 // 	$.set_cmd('test.func', async function(param){
 // 		return 'hi, ' + param;
@@ -46,7 +46,7 @@ require('./index.js');
 // 			return "你好, " + ab;
 // 		}
 // 	});
-	
+
 // 	console.log(cs);
 // 	console.log(await cs.test('hello world!'));
 // }
@@ -80,25 +80,25 @@ require('./index.js');
 /**
  * 测试运行代码脚本
  */
-async function test_run_srcipt(){
-	var cm = {
-		set_config: function(config){
-			break;
-		},
-		test: async function(ab){
-			return "你好, " + ab;
-		}
-	};
-	var em = {
-		test: function(bb){
-			return bb;
-		}
-	}
-	var code = "";
-	var ret = await $.run_srcipt("./script.js", cm, em);
-	console.log(ret);
-}
-test_run_srcipt();
+// async function test_run_srcipt(){
+// 	var cm = {
+// 		set_config: function(config){
+// 			break;
+// 		},
+// 		test: async function(ab){
+// 			return "你好, " + ab;
+// 		}
+// 	};
+// 	var em = {
+// 		test: function(bb){
+// 			return bb;
+// 		}
+// 	}
+// 	var code = "";
+// 	var ret = await $.run_srcipt("./script.js", cm, em);
+// 	console.log(ret);
+// }
+// test_run_srcipt();
 
 // var arr = [{name: "test", age: 15 },{name: "bbs", age: 33 }];
 // console.log(arr.getVal('age', { name: 'test' }));
@@ -286,7 +286,7 @@ test_run_srcipt();
 // // 	// $.del(drive, null, null);
 
 // // 	// $.del(drive, ["config", "param", "set"], null);
-	
+
 // // 	// $.del(drive, ["config", "param", "set"], ["desc", "query"]);
 // // 	// var ret = $.del(drive, ["config", "param", {
 // // 	// 	add: true,
@@ -298,7 +298,7 @@ test_run_srcipt();
 // // 	// $.del(drive, "config" , { config: "sort"});
 // // 	$.del(drive, { config: "param" }, { config: { param: "add" } });
 // // 	console.log(JSON.stringify(drive, true));
-	
+
 // // 	var arr = ["123","test"];
 // // 	var arr2 = ["1234","test"];
 // // 	console.log(arr.add(arr2));
@@ -321,3 +321,54 @@ test_run_srcipt();
 // 	console.log(ret);
 // }
 // testTpl();
+
+
+// var list = [
+// 	{
+// 		id: 1,
+// 		name: "张三",
+// 		age: 23,
+// 		sex: 1
+// 	},
+// 	{
+// 		id: 2,
+// 		name: "李四",
+// 		age: 20,
+// 		sex: 0
+// 	}, {
+// 		id: 3,
+// 		name: "王五",
+// 		age: 23,
+// 		sex: 1
+// 	},
+// 	{
+// 		id: 4,
+// 		name: "十五",
+// 		age: 23,
+// 		sex: 0
+// 	}
+// ];
+
+// var list2 = [
+// 	{
+// 		id: 2,
+// 		name: "李四",
+// 		age: 18,
+// 		sex: 0
+// 	}, {
+// 		id: 3,
+// 		name: "王老五",
+// 		age: 23,
+// 		sex: 1
+// 	}
+// ];
+
+// list.setList(list2, 'id');
+// console.log(list);
+
+
+// var test = "?a=123&b=test&c=nihao";
+// console.log(test.toQuery());
+
+// console.log('./'.getFile());
+// console.log('./'.getDir('node*'));

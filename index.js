@@ -726,6 +726,25 @@ if (typeof($) === "undefined") {
 /* == 字符串拓展函数 == */
 (function() {
 	/**
+	 * form-data转对象
+	 * @param key 
+	 * @return {String} 加密后的字符串
+	 */
+	String.prototype.toQuery = function() {
+		var obj = {};
+		var str = this + '';
+		var arr1 = str.split("?");
+		if (arr1.length > 1) {
+			var arr2 = arr1[1].split("&");
+			for (var i = 0; i < arr2.length; i++) {
+				var res = arr2[i].split("=");
+				obj[res[0]] = res[1];
+			}
+		}
+		return obj;
+	};
+
+	/**
 	 * @description MD5加密
 	 * @return {String} 加密后的字符串
 	 */
@@ -1017,7 +1036,7 @@ if (typeof($) === "undefined") {
 	 * @return {Number} 浮点数
 	 */
 	String.prototype.toNum = function(len, mode) {
-		return new Number(num).get(len, mode);
+		return new Number(this).get(len, mode);
 	};
 	/**
 	 * @description 转为对象
@@ -1347,7 +1366,7 @@ if (typeof($) === "undefined") {
 		for (var i = 0; i < list.length; i++) {
 			var o = list[i];
 			if (o[father_id] === value) {
-				o[sub] = toTree(list, id, o[id]);
+				o[sub] = toTree(list, id, o[id], father_id, sub);
 				arr.push(o);
 			}
 		}
@@ -1894,14 +1913,21 @@ if (typeof($) === "undefined") {
 	/**
 	 * @description 设置数组中对象的属性值
 	 * @param {Array} list 对象列表
-	 * @param {Object} query 查询条件
+	 * @param {Object} key 对象主键
 	 * @param {Boolean} end 是否中断循环,中断只修改第一个符合条件的对象
 	 * @return {Array} 对象数组
 	 */
-	Array.prototype.setList = function(list, query, end) {
-		var len = this.length;
+	Array.prototype.setList = function(list, key, end) {
+		if (!key) {
+			console.error("The 2 parameter is required");
+			return;
+		}
+		var len = list.length;
 		for (var i = 0; i < len; i++) {
-			this.setObj(this[i], query, end);
+			var query = {};
+			var o = list[i];
+			query[key] = o[key];
+			this.setObj(o, query, end);
 		}
 	};
 	/**
@@ -2208,6 +2234,7 @@ if (typeof($) === "undefined") {
 			getFile(list, dir, keyword);
 			return list;
 		};
+		
 		/**
 		 * @description 加载文件
 		 * @param {String} file 编码方式
@@ -2242,6 +2269,26 @@ if (typeof($) === "undefined") {
 	}
 	$.file = new File();
 	$.dir = new Dir();
+	
+	
+	/**
+	 * @description 获取当前目录下所有文件
+	 * @param {String} keyword 搜索关键词
+	 * @return {Array} 文件路径数组
+	 */
+	String.prototype.getFile = function(keyword){
+		 return $.file.get(this + '', keyword);
+	};
+	
+	/**
+	 * @description 搜索当前目录下所有目录
+	 * @param {String} keyword 搜索关键词
+	 * @return {Array} 目录路径数组
+	 */
+	String.prototype.getDir = function(keyword) {
+		return $.dir.get(this + '', keyword);
+	};
+	
 })();
 
 /**
@@ -2537,7 +2584,7 @@ if (typeof($) === "undefined") {
 	}
 
 	$.prop = prop;
-	
+
 	/**
 	 * @description 语言包, 用于全局的语言替换
 	 * @property {String} now = [chinese|english] 当前语言
@@ -2552,7 +2599,7 @@ if (typeof($) === "undefined") {
 			name: "MM"
 		}
 	});
-	
+
 	/**
 	 * 运行代码
 	 * @param {String} code 代码字符串
@@ -2562,7 +2609,7 @@ if (typeof($) === "undefined") {
 	 * @param {Object} rm reactor反应堆对象
 	 * @return {String} 返回运行结果
 	 */
-	$.run_code = async function(code, cm, em = {}, qm = {}, rm = {}){
+	$.run_code = async function(code, cm, em = {}, qm = {}, rm = {}) {
 		var func_str = `async function run_code() {
 			var body;
 			
@@ -2573,7 +2620,7 @@ if (typeof($) === "undefined") {
 		eval(func_str);
 		return await run_code();
 	};
-	
+
 	/**
 	 * 运行代码
 	 * @param {String} code 代码字符串
@@ -2583,38 +2630,37 @@ if (typeof($) === "undefined") {
 	 * @param {Object} rm reactor反应堆对象
 	 * @return {String} 返回运行结果
 	 */
-	$.run_srcipt = async function(file, cm, em = {}, qm = {}, rm = {}){
-		if(file.hasFile()){
+	$.run_srcipt = async function(file, cm, em = {}, qm = {}, rm = {}) {
+		if (file.hasFile()) {
 			return await $.run_code(file.loadText(), cm, em, qm, rm);
-		}
-		else {
+		} else {
 			return undefined;
 		}
 	};
-	
+
 	/**
 	 * 加载模块
 	 * @param {String} file 文件路径
 	 */
-	$.load = function(file){
+	$.load = function(file) {
 		return require(file);
 	};
-	
+
 	/**
 	 * 卸载模块
 	 * @param {String} file 文件路径
 	 */
-	$.unload = function(file){
+	$.unload = function(file) {
 		var f = require.resolve(file);
 		delete require.cache[f];
 		return f;
 	};
-	
+
 	/**
 	 * 重载模块
 	 * @param {String} file 文件路径
 	 */
-	$.reload = function(file){
+	$.reload = function(file) {
 		var f = $.unload(file);
 		return $.load(f);
 	};
