@@ -400,7 +400,7 @@ function toUrl(obj, url) {
 				queryStr += "&" + key + "=" + obj[key];
 			}
 		} else if (value) {
-			queryStr += "&" + key + "=" + encodeURI(obj[key]);
+			queryStr += "&" + key + "=" + encodeURIComponent(obj[key]);
 		}
 	}
 	if (url) {
