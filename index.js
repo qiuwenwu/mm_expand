@@ -647,12 +647,24 @@ if (typeof($) === "undefined") {
 
 	/**
 	 * @description 随机数
-	 * @@param {Number} min 最小值
+	 * @param {Number} min 最小值
 	 * @return {Number} 返回一个数值
 	 */
 	Number.prototype.rand = function(min = 1) {
 		return Math.floor(Math.random() * (this - min + 1) + min);
 	};
+	
+	/**
+	 * @description 随机数
+	 * @param {Number} margin 上下幅度
+	 * @return {Number} 返回一个数值
+	 */
+	Number.prototype.range = function(margin = 5) {
+		var min = this - margin;
+		var max = this + margin;
+		return Math.floor(Math.random() * (max - min + 1) + min);
+	};
+	
 })();
 
 /* == 时间原型函数 == */

@@ -2,13 +2,24 @@ require('./index.js');
 
 
 var num = 5;
-console.log(num.rand());
-console.log(num.rand());
-console.log(num.rand());
-console.log(num.rand());
-console.log(num.rand());
-console.log(num.rand());
-console.log(num.rand());
+// 随机一个1-5数值
+// console.log(num.rand(1));
+// console.log(num.rand(1));
+// console.log(num.rand(1));
+// console.log(num.rand(1));
+// console.log(num.rand(1));
+// console.log(num.rand(1));
+// console.log(num.rand(1));
+
+
+// 随机一个上下浮动10的数值
+console.log(num.range(10));
+console.log(num.range(10));
+console.log(num.range(10));
+console.log(num.range(10));
+console.log(num.range(10));
+console.log(num.range(10));
+console.log(num.range(10));
 
 // /**
 //  * 测试重载模块
