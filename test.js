@@ -1,5 +1,15 @@
 require('./index.js');
 
+
+var num = 5;
+console.log(num.rand());
+console.log(num.rand());
+console.log(num.rand());
+console.log(num.rand());
+console.log(num.rand());
+console.log(num.rand());
+console.log(num.rand());
+
 // /**
 //  * 测试重载模块
 //  */

@@ -644,6 +644,15 @@ if (typeof($) === "undefined") {
 	Number.prototype.toTime = function() {
 		return new Date(this * 1000);
 	};
+
+	/**
+	 * @description 随机数
+	 * @@param {Number} min 最小值
+	 * @return {Number} 返回一个数值
+	 */
+	Number.prototype.rand = function(min = 1) {
+		return Math.floor(Math.random() * (this - min + 1) + min);
+	};
 })();
 
 /* == 时间原型函数 == */
@@ -1092,7 +1101,8 @@ if (typeof($) === "undefined") {
 				bl = /^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+/gi.test(value)
 				break;
 			case "date":
-				bl = /^\d{4}(\-|\/|\.)(0[1-9]|1[012]|[1-9])(\-|\/|\.)([12][0-9]|0[1-9]|3[01]|[1-9])$/.test(value)
+				bl = /^\d{4}(\-|\/|\.)(0[1-9]|1[012]|[1-9])(\-|\/|\.)([12][0-9]|0[1-9]|3[01]|[1-9])$/.test(
+					value)
 				break;
 			case "time":
 				bl = /^([01][0-9]|2[0-3]):([0-4][0-9]|5[0-9])(:([0-4][0-9]|5[0-9]))?$/.test(value)
@@ -2234,7 +2244,7 @@ if (typeof($) === "undefined") {
 			getFile(list, dir, keyword);
 			return list;
 		};
-		
+
 		/**
 		 * @description 加载文件
 		 * @param {String} file 编码方式
@@ -2269,17 +2279,17 @@ if (typeof($) === "undefined") {
 	}
 	$.file = new File();
 	$.dir = new Dir();
-	
-	
+
+
 	/**
 	 * @description 获取当前目录下所有文件
 	 * @param {String} keyword 搜索关键词
 	 * @return {Array} 文件路径数组
 	 */
-	String.prototype.getFile = function(keyword){
-		 return $.file.get(this + '', keyword);
+	String.prototype.getFile = function(keyword) {
+		return $.file.get(this + '', keyword);
 	};
-	
+
 	/**
 	 * @description 搜索当前目录下所有目录
 	 * @param {String} keyword 搜索关键词
@@ -2288,7 +2298,7 @@ if (typeof($) === "undefined") {
 	String.prototype.getDir = function(keyword) {
 		return $.dir.get(this + '', keyword);
 	};
-	
+
 })();
 
 /**
