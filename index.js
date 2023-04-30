@@ -1320,10 +1320,10 @@ if (typeof($) === "undefined") {
 
 	/**
 	 * @description 删除文件
-	 * @param {String} dir 当前路径
+	 * @param {String} file 当前路径
 	 */
-	String.prototype.delFile = function(dir) {
-		unlink(this.fullname(dir), function(e) {});
+	String.prototype.delFile = function(file) {
+		unlink(this.fullname(file), function(e) {});
 	};
 
 	/**
@@ -2275,15 +2275,14 @@ if (typeof($) === "undefined") {
 		 * @description 加载文件
 		 * @param {String} file 文件路径
 		 * @param {String} data 编码方式
-		 * @param {Boolean} options 写出成功返回true, 失败返回false
 		 * @return {Boolean} 保存成功返回true，否则返回false
 		 */
-		File.prototype.save = function(file, data, options) {
+		File.prototype.save = function(file, data, encode) {
 			if (data) {
 				if (!encode) {
 					encode = "utf-8"
 				}
-				return writeFileSync(file, encode);
+				return writeFileSync(file, data, encode);
 			} else {
 				return false;
 			}

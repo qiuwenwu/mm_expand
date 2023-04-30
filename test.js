@@ -10,7 +10,11 @@ var num = 5;
 // console.log(num.rand(1));
 // console.log(num.rand(1));
 // console.log(num.rand(1));
-
+"./中文/的".addDir();
+"./中文/test.json".saveJson({ name: "123" });
+"./中文/test.json".delFile();
+"./中文".delDir();
+console.log()
 
 // 随机一个上下浮动10的数值
 console.log(num.range(10));
