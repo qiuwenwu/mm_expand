@@ -2265,10 +2265,7 @@ if (typeof($) === "undefined") {
 		 */
 		File.prototype.load = function(file, encode) {
 			if (isFile(file)) {
-				if (!encode) {
-					encode = "utf-8"
-				}
-				return readFileSync(file, type);
+				return readFileSync(file, encode);
 			}
 		};
 		/**
