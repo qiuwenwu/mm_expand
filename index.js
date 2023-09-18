@@ -653,7 +653,7 @@ if (typeof($) === "undefined") {
 	Number.prototype.rand = function(min = 1) {
 		return Math.floor(Math.random() * (this - min + 1) + min);
 	};
-	
+
 	/**
 	 * @description 随机数
 	 * @param {Number} margin 上下幅度
@@ -664,7 +664,7 @@ if (typeof($) === "undefined") {
 		var max = this + margin;
 		return Math.floor(Math.random() * (max - min + 1) + min);
 	};
-	
+
 })();
 
 /* == 时间原型函数 == */
@@ -696,6 +696,7 @@ if (typeof($) === "undefined") {
 		}
 		return format;
 	};
+
 	/**
 	 * @description 获取当前时间戳
 	 * @return {Number} 返回时间戳
@@ -704,6 +705,7 @@ if (typeof($) === "undefined") {
 		var timestamp = Date.parse(this);
 		return timestamp / 1000;
 	};
+
 	/**
 	 * @description 计算时间差(时间间隔)
 	 * @param {String} endTime 结束时间
@@ -716,31 +718,33 @@ if (typeof($) === "undefined") {
 		var etime = Date.parse(new Date(endTime));
 		var usedTime = etime - stime; // 两个时间戳相差的毫秒数
 		if (time_unit === "day") {
-			return Math.floor(usedTime / (1000 * 60 * 60 * 24));
+			return Math.floor(usedTime / 86400000);
 		} else if (time_unit === "hours") {
-			return Math.floor(usedTime / (1000 * 60 * 60));
+			return Math.floor(usedTime / 3600000);
 		} else if (time_unit === "minutes") {
-			return Math.floor(usedTime / (1000 * 60));
+			return Math.floor(usedTime / 60000);
 		} else {
 			return Math.floor(usedTime / 1000);
 		}
 	};
+
 	/**
 	 * @description 时间添加天数
 	 * @param {Number} days 天数
 	 * @return {Date} 时间对象
 	 */
 	Date.prototype.addDays = function(days) {
-		this.setDate(this.getDate() + days);
-		return this;
+		var stemp = Date.parse(this);
+		return new Date(stemp + days * 86400000);
 	};
+
 	/**
 	 * @description 时间添加秒数
 	 * @param {Date} seconds 时间对象
 	 */
 	Date.prototype.addSeconds = function(seconds) {
-		this.setSeconds(this.getSeconds() + seconds);
-		return this;
+		var stemp = Date.parse(this);
+		return new Date(stemp + seconds * 1000);
 	};
 })();
 
@@ -1041,6 +1045,37 @@ if (typeof($) === "undefined") {
 		var str = this.replace('T', ' ').replace('Z', '').replaceAll('-', '/');
 		return str.toTime().toStr(format);
 	};
+
+	/**
+	 * @description 时间增加秒数
+	 * @param {Number} seconds 增加秒数
+	 * @param {String} format 转换的格式
+	 * @return {String|Date} 时间格式字符串
+	 */
+	String.prototype.addSeconds = function(seconds, format) {
+		var str = this;
+		var time = str.toTime().addSeconds(seconds);
+		if (format) {
+			return time.toStr(format);
+		}
+		return time;
+	};
+
+	/**
+	 * @description 时间增加天数
+	 * @param {Number} days 增加天数
+	 * @param {String} format 转换的格式
+	 * @return {String|Date} 时间格式字符串
+	 */
+	String.prototype.addDays = function(days, format) {
+		var str = this;
+		var time = str.toTime().addDays(days);
+		if (format) {
+			return time.toStr(format);
+		}
+		return time;
+	};
+
 	/**
 	 * @description 转为数组
 	 * @param {String|Regex} separator 分隔符或正则

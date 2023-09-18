@@ -1,7 +1,25 @@
 require('./index.js');
 
+var timeStr = "1970-01-01 00:00:00";
 
-var num = 5;
+var time = timeStr.toTime();
+console.log(time);
+
+var time2 = timeStr.addDays(367);
+console.log(time2);
+
+var time3 = timeStr.addSeconds(60);
+console.log(time3.toStr("yyyy-MM-dd hh:mm:ss"));
+
+var time4 = timeStr.addSeconds(60, "yyyy-MM-dd hh:mm:ss");
+console.log(time4);
+
+// "./中文/的".addDir(__dirname);
+// "./中文/test.json".saveJson({ name: "123" });
+// "./中文/test.json".delFile();
+// "./中文".delDir(__dirname);
+
+// var num = 5;
 // 随机一个1-5数值
 // console.log(num.rand(1));
 // console.log(num.rand(1));
@@ -10,20 +28,15 @@ var num = 5;
 // console.log(num.rand(1));
 // console.log(num.rand(1));
 // console.log(num.rand(1));
-"./中文/的".addDir();
-"./中文/test.json".saveJson({ name: "123" });
-"./中文/test.json".delFile();
-"./中文".delDir();
-console.log()
 
 // 随机一个上下浮动10的数值
-console.log(num.range(10));
-console.log(num.range(10));
-console.log(num.range(10));
-console.log(num.range(10));
-console.log(num.range(10));
-console.log(num.range(10));
-console.log(num.range(10));
+// console.log(num.range(10));
+// console.log(num.range(10));
+// console.log(num.range(10));
+// console.log(num.range(10));
+// console.log(num.range(10));
+// console.log(num.range(10));
+// console.log(num.range(10));
 
 // /**
 //  * 测试重载模块
