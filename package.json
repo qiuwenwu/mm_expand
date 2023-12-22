@@ -1,6 +1,6 @@
 {
     "name": "mm_expand",
-    "version": "1.5.6",
+    "version": "1.5.7",
     "description": "这是超级美眉原型函数拓展模块，更有利于对string、array、object的操作，避免出错，简化业务逻辑。",
     "main": "index.js",
     "scripts": {
@@ -31,6 +31,7 @@
     "dependencies": {
         "fast-xml-parser": "^3.21.1",
         "json5": "^2.2.3",
+        "ncp": "^2.0.0",
         "pinyinlite": "^1.2.1"
     }
 }

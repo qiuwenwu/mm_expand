@@ -1,18 +1,27 @@
 require('./index.js');
 
-var timeStr = "1970-01-01 00:00:00";
+// 测试复制目录
+// "./demo/test".copyDir("./demo/test3"); // 方法1
+// $.dir.copy("./demo/test", "./demo/test4"); // 方法2
 
-var time = timeStr.toTime();
-console.log(time);
+// 测试复制文件
+"./demo/test5/".addDir();
+"./demo/test/local.json".copyDir("./demo/test5/local.json"); // 方法1
+$.dir.copy("./demo/test/local.json", "./demo/test5/local2.json"); // 方法2
 
-var time2 = timeStr.addDays(367);
-console.log(time2);
+// var timeStr = "1970-01-01 00:00:00";
 
-var time3 = timeStr.addSeconds(60);
-console.log(time3.toStr("yyyy-MM-dd hh:mm:ss"));
+// var time = timeStr.toTime();
+// console.log(time);
 
-var time4 = timeStr.addSeconds(60, "yyyy-MM-dd hh:mm:ss");
-console.log(time4);
+// var time2 = timeStr.addDays(367);
+// console.log(time2);
+
+// var time3 = timeStr.addSeconds(60);
+// console.log(time3.toStr("yyyy-MM-dd hh:mm:ss"));
+
+// var time4 = timeStr.addSeconds(60, "yyyy-MM-dd hh:mm:ss");
+// console.log(time4);
 
 // "./中文/的".addDir(__dirname);
 // "./中文/test.json".saveJson({ name: "123" });

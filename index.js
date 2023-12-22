@@ -3,7 +3,8 @@
  * @author <a href="http://qww.elins.cn">邱文武</a>
  * @version 1.2
  */
-const JSON5 = require('json5')
+const JSON5 = require('json5');
+var ncp = require('ncp').ncp;
 const {
 	j2xParser,
 	parse
@@ -1383,8 +1384,9 @@ if (typeof($) === "undefined") {
 	 * @param {String} dir 文件路径
 	 */
 	String.prototype.addDir = function(dirbase) {
-		var d = (this + '').fullname();
-		if (this.indexOf('.') !== -1) {
+		var d = (this + '').fullname(dirbase);
+		
+		if (d.indexOf('.') !== -1) {
 			d = d.dirname()
 		}
 		var arr = d.split(slash);
@@ -1404,6 +1406,15 @@ if (typeof($) === "undefined") {
 	 */
 	String.prototype.copyFile = function(file) {
 		return copyFileSync(this.fullname(), file.fullname());
+	};
+	
+	/**
+	 * @description 复制目录
+	 * @param {String} file 保存路径
+	 * @return {Boolean} 复制成功返回true, 失败返回false
+	 */
+	String.prototype.copyDir = function(file, func) {
+		return ncp(this.fullname(), file.fullname(), func);
 	};
 })();
 
@@ -2254,6 +2265,14 @@ if (typeof($) === "undefined") {
 			getDir(list, dir.fullname(), keyword);
 			return list;
 		};
+		/**
+		 * 复制目录
+		 * @param {String} sourcePath 源路径
+		 * @param {String} targetPath 目标路径
+		 */
+		Dir.prototype.copy = function(sourcePath, targetPath, func) {
+			ncp(sourcePath.fullname(), targetPath.fullname(), func);
+		}
 	}
 	/**
 	 * 文件类函数
@@ -2317,6 +2336,19 @@ if (typeof($) === "undefined") {
 				return writeFileSync(file, data, encode);
 			} else {
 				return false;
+			}
+		}
+		/**
+		 * @description 加载文件
+		 * @param {String} file 文件路径
+		 * @param {String} data 编码方式
+		 * @return {Boolean} 保存成功返回true，否则返回false
+		 */
+		File.prototype.copy = function(sourcePath, targetPath) {
+			try {
+				copyFileSync(sourcePath.fullname(), targetPath.fullname());
+			} catch (err) {
+				console.error(err);
 			}
 		}
 	}
