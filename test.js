@@ -1,13 +1,36 @@
 require('./index.js');
 
+var arr1 = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+// var arr1 = [{
+// 	id: 1
+// }, {
+// 	id: 2
+// }, {
+// 	id: 3
+// }, '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+console.log('拆分', arr1.to2D(2));
+console.log('拆分', arr1.to2D(3));
+console.log('拆分', arr1.to2D(4));
+console.log('拆分', arr1.to2D(5));
+console.log('拆分', arr1.to2D(6));
+console.log('拆分', arr1.to2D(7));
+console.log('拆分', arr1.to2D(8));
+
+console.log('合并', arr1.to2D(7).to1D());
+console.log('合并', arr1.to2D(8).to1D());
+
 // 测试复制目录
+// "./demo/test3".delDir();
+// $.dir.del("./demo/test4");
 // "./demo/test".copyDir("./demo/test3"); // 方法1
 // $.dir.copy("./demo/test", "./demo/test4"); // 方法2
 
-// 测试复制文件
-"./demo/test5/".addDir();
-"./demo/test/local.json".copyDir("./demo/test5/local.json"); // 方法1
-$.dir.copy("./demo/test/local.json", "./demo/test5/local2.json"); // 方法2
+// // 测试复制文件
+// "./demo/test5/".addDir();
+// "./demo/test/local.json".copyFile("./demo/test5/local.json"); // 方法1
+// $.file.copy("./demo/test/local.json", "./demo/test5/local2.json"); // 方法2
+// "./demo/test5/local.json".delFile();
+// $.file.del("./demo/test5/local2.json");
 
 // var timeStr = "1970-01-01 00:00:00";
 

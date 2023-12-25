@@ -5,6 +5,7 @@
  */
 const JSON5 = require('json5');
 var ncp = require('ncp').ncp;
+const { rimraf, rimrafSync } = require('rimraf');
 const {
 	j2xParser,
 	parse
@@ -17,7 +18,7 @@ const {
 	statSync,
 	readdirSync,
 	mkdirSync,
-	unlink,
+	unlinkSync,
 	rmdir
 } = require('fs');
 const {
@@ -1356,10 +1357,10 @@ if (typeof($) === "undefined") {
 
 	/**
 	 * @description 删除文件
-	 * @param {String} file 当前路径
+	 * @param {String} dir 当前路径
 	 */
-	String.prototype.delFile = function(file) {
-		unlink(this.fullname(file), function(e) {});
+	String.prototype.delFile = function(dir) {
+		unlinkSync(this.fullname(dir), function(e) {});
 	};
 
 	/**
@@ -1374,9 +1375,10 @@ if (typeof($) === "undefined") {
 	/**
 	 * @description 删除目录
 	 * @param {String} dir 当前路径
+	 * @param {Function} func 回调函数
 	 */
-	String.prototype.delDir = function(dir) {
-		rmdir(this.fullname(dir), function(e) {});
+	String.prototype.delDir = function(dir, func) {
+		rimrafSync(this.fullname(dir), func);
 	};
 
 	/**
@@ -2130,6 +2132,32 @@ if (typeof($) === "undefined") {
 		});
 		return obj;
 	};
+	
+	/**
+	 * 将一维数组转成二维
+	 * @param {Object} size
+	 */
+	Array.prototype.to2D = function(size) {
+		var arr = this;
+	    let newArr = [];
+	    for (let i = 0; i < arr.length; i += size) {
+	        let arrayChunk = arr.slice(i, i + size);
+	        newArr.push(arrayChunk);
+	    }
+	    return newArr;
+	};
+	
+	/**
+	 * 将二维数组合并转成一维
+	 */
+	Array.prototype.to1D = function() {
+		var arr = this;
+	    let newArr = [];
+	    for (let i = 0; i < arr.length; i++) {
+			newArr = newArr.concat(arr[i]);
+	    }
+	    return newArr;
+	};
 })();
 
 /**
@@ -2269,9 +2297,19 @@ if (typeof($) === "undefined") {
 		 * 复制目录
 		 * @param {String} sourcePath 源路径
 		 * @param {String} targetPath 目标路径
+		 * @param {Function} func 回调函数
 		 */
 		Dir.prototype.copy = function(sourcePath, targetPath, func) {
 			ncp(sourcePath.fullname(), targetPath.fullname(), func);
+		}
+		/**
+		 * @description 删除目录
+		 * @param {String} dir 目录路径
+		 * @param {Function} func 回调函数
+		 * @return {Boolean} 保存成功返回true，否则返回false
+		 */
+		Dir.prototype.del = function(dir, func) {
+			rimrafSync(dir.fullname(), func);
 		}
 	}
 	/**
@@ -2340,13 +2378,25 @@ if (typeof($) === "undefined") {
 		}
 		/**
 		 * @description 加载文件
-		 * @param {String} file 文件路径
-		 * @param {String} data 编码方式
+		 * @param {String} sourcePath 文件原路径
+		 * @param {String} targetPath 目标路径
 		 * @return {Boolean} 保存成功返回true，否则返回false
 		 */
 		File.prototype.copy = function(sourcePath, targetPath) {
 			try {
 				copyFileSync(sourcePath.fullname(), targetPath.fullname());
+			} catch (err) {
+				console.error(err);
+			}
+		}
+		/**
+		 * @description 删除文件
+		 * @param {String} file 文件路径
+		 * @return {Boolean} 保存成功返回true，否则返回false
+		 */
+		File.prototype.del = function(file) {
+			try {
+				unlinkSync(file.fullname());
 			} catch (err) {
 				console.error(err);
 			}
