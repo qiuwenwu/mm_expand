@@ -5,7 +5,10 @@
  */
 const JSON5 = require('json5');
 var ncp = require('ncp').ncp;
-const { rimraf, rimrafSync } = require('rimraf');
+const {
+	rimraf,
+	rimrafSync
+} = require('rimraf');
 const {
 	j2xParser,
 	parse
@@ -1235,25 +1238,32 @@ if (typeof($) === "undefined") {
 	 */
 	String.prototype.fullname = function(dir) {
 		var file = this + '';
-		file = file.replace(/\//g, slash);
-		if (file.startWith('.' + slash)) {
-			if (dir) {
-				file = file.replace('.' + slash, dir.fullname());
-			} else {
-				file = file.replace('.' + slash, $.runPath);
+		if (dir) {
+			if (!dir.endsWith(slash)) {
+				dir += slash;
 			}
-		} else if (file.startWith('..' + slash)) {
-			if (dir) {
-				file = dir.fullname() + file;
-			} else {
-				file = $.runPath + file;
-			}
-		} else if (file.startWith(slash) && !file.startWith($.runPath)) {
-			file = $.runPath + file.substring(0);
+			dir = dir.fullname();
+		} else {
+			dir = $.runPath;
 		}
-		file = join(file, '');
-		if (file.indexOf('.') === -1 && !file.endsWith(slash)) {
-			file += slash;
+		file = file.replace(/\//g, slash);
+		if (!file.startWith($.runPath)) {
+			if (file.startWith(slash)) {
+				file = join($.runPath, file);
+			} else {
+				file = join(dir, file);
+			}
+		}
+		if (!file.endsWith(slash)) {
+			if(file.indexOf('.') === -1){
+				file += slash;
+			}
+			else {
+				var arr = file.split(slash);
+				if(arr[arr.length - 1].indexOf('.') === -1){
+					file += slash;
+				}
+			}
 		}
 		return file;
 	};
@@ -1387,7 +1397,7 @@ if (typeof($) === "undefined") {
 	 */
 	String.prototype.addDir = function(dirbase) {
 		var d = (this + '').fullname(dirbase);
-		
+
 		if (d.indexOf('.') !== -1) {
 			d = d.dirname()
 		}
@@ -1409,7 +1419,7 @@ if (typeof($) === "undefined") {
 	String.prototype.copyFile = function(file) {
 		return copyFileSync(this.fullname(), file.fullname());
 	};
-	
+
 	/**
 	 * @description 复制目录
 	 * @param {String} file 保存路径
@@ -2132,31 +2142,31 @@ if (typeof($) === "undefined") {
 		});
 		return obj;
 	};
-	
+
 	/**
 	 * 将一维数组转成二维
 	 * @param {Object} size
 	 */
 	Array.prototype.to2D = function(size) {
 		var arr = this;
-	    let newArr = [];
-	    for (let i = 0; i < arr.length; i += size) {
-	        let arrayChunk = arr.slice(i, i + size);
-	        newArr.push(arrayChunk);
-	    }
-	    return newArr;
+		let newArr = [];
+		for (let i = 0; i < arr.length; i += size) {
+			let arrayChunk = arr.slice(i, i + size);
+			newArr.push(arrayChunk);
+		}
+		return newArr;
 	};
-	
+
 	/**
 	 * 将二维数组合并转成一维
 	 */
 	Array.prototype.to1D = function() {
 		var arr = this;
-	    let newArr = [];
-	    for (let i = 0; i < arr.length; i++) {
+		let newArr = [];
+		for (let i = 0; i < arr.length; i++) {
 			newArr = newArr.concat(arr[i]);
-	    }
-	    return newArr;
+		}
+		return newArr;
 	};
 })();
 

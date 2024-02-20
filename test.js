@@ -1,6 +1,26 @@
 require('./index.js');
 
-var arr1 = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+
+console.log("./fast/log".fullname(__dirname));
+console.log("./fast/log".fullname());
+console.log("./fast/log/".fullname());
+console.log("fast/log".fullname(__dirname));
+console.log("fast/log".fullname());
+console.log("fast/log/".fullname());
+console.log("../fast/log".fullname(__dirname));
+console.log("../fast/log".fullname());
+console.log("/fast/log".fullname(__dirname));
+console.log("/fast/log".fullname());
+console.log("/fast/log/".fullname());
+console.log("/fast/log.lgo".fullname());
+console.log("/fast/log.lgo\\".fullname());
+console.log("E:\\github\\mm_modules\\mm_expand\\fast\\log\\".fullname(__dirname));
+console.log("E:\\github\\mm_modules\\mm_expand\\fast\\log\\".fullname());
+console.log("E:\\github\\mm_modules\\mm_expand\\fast\\log".fullname());
+
+console.log("/fast/log.lgo\\log".fullname());
+// var arr1 = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+
 // var arr1 = [{
 // 	id: 1
 // }, {
@@ -8,16 +28,16 @@ var arr1 = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 // }, {
 // 	id: 3
 // }, '4', '5', '6', '7', '8', '9', '10', '11', '12'];
-console.log('拆分', arr1.to2D(2));
-console.log('拆分', arr1.to2D(3));
-console.log('拆分', arr1.to2D(4));
-console.log('拆分', arr1.to2D(5));
-console.log('拆分', arr1.to2D(6));
-console.log('拆分', arr1.to2D(7));
-console.log('拆分', arr1.to2D(8));
+// console.log('拆分', arr1.to2D(2));
+// console.log('拆分', arr1.to2D(3));
+// console.log('拆分', arr1.to2D(4));
+// console.log('拆分', arr1.to2D(5));
+// console.log('拆分', arr1.to2D(6));
+// console.log('拆分', arr1.to2D(7));
+// console.log('拆分', arr1.to2D(8));
 
-console.log('合并', arr1.to2D(7).to1D());
-console.log('合并', arr1.to2D(8).to1D());
+// console.log('合并', arr1.to2D(7).to1D());
+// console.log('合并', arr1.to2D(8).to1D());
 
 // 测试复制目录
 // "./demo/test3".delDir();
