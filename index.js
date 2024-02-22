@@ -1038,8 +1038,17 @@ if (typeof($) === "undefined") {
 	 * @return {Date} 时间对象
 	 */
 	String.prototype.toTime = function() {
-		var str = this.replace('T', ' ').replace('Z', '').replaceAll('-', '/');
-		return new Date(str);
+		var str = this;
+		var time;
+		if (str.indexOf('T')) {
+			str = this.replace('T', ' ').replace('Z', '').replaceAll('-', '/');
+			time = new Date(str).addSeconds(28800);
+		}
+		else {
+			str = this.replaceAll('-', '/');
+			time = new Date(str);
+		}
+		return time;
 	};
 	/**
 	 * @description 转为时间格式字符串
@@ -1255,12 +1264,11 @@ if (typeof($) === "undefined") {
 			}
 		}
 		if (!file.endsWith(slash)) {
-			if(file.indexOf('.') === -1){
+			if (file.indexOf('.') === -1) {
 				file += slash;
-			}
-			else {
+			} else {
 				var arr = file.split(slash);
-				if(arr[arr.length - 1].indexOf('.') === -1){
+				if (arr[arr.length - 1].indexOf('.') === -1) {
 					file += slash;
 				}
 			}
