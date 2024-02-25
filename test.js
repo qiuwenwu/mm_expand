@@ -1,6 +1,6 @@
 require('./index.js');
 
-
+// console.log($.rootPath);
 console.log("./fast/log".fullname(__dirname));
 console.log("./fast/log".fullname());
 console.log("./fast/log/".fullname());

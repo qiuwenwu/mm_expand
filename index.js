@@ -28,7 +28,8 @@ const {
 	join,
 	dirname,
 	basename,
-	extname
+	extname,
+	resolve
 } = require('path');
 const {
 	inspect
@@ -47,6 +48,7 @@ const Lang = require('./lang.js');
  * @type {String}
  */
 const slash = join('/');
+const rootPath = resolve();
 
 /* == 基础函数 == */
 /**
@@ -536,6 +538,8 @@ if (typeof($) === "undefined") {
 		},
 		// 当前系统路径使用的斜杠
 		slash: slash,
+		// 系统跟目录
+		rootPath, rootPath,
 		// 运行根目录
 		runPath: process.cwd() + slash,
 		// 延迟
@@ -1265,11 +1269,13 @@ if (typeof($) === "undefined") {
 			dir = $.runPath;
 		}
 		file = file.replace(/\//g, slash);
-		if (!file.startWith($.runPath)) {
-			if (file.startWith(slash)) {
-				file = join($.runPath, file);
-			} else {
-				file = join(dir, file);
+		if (!file.startWith($.rootPath)) {
+			if (!file.startWith($.runPath)) {
+				if (file.startWith(slash)) {
+					file = join($.rootPath, file);
+				} else {
+					file = join(dir, file);
+				}
 			}
 		}
 		if (!file.endsWith(slash)) {
