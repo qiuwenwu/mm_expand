@@ -1040,7 +1040,7 @@ if (typeof($) === "undefined") {
 	String.prototype.toTime = function() {
 		var str = this;
 		var time;
-		if (str.indexOf('T')) {
+		if (str.indexOf('T') !== -1) {
 			str = this.replace('T', ' ').replace('Z', '').replaceAll('-', '/');
 			time = new Date(str).addSeconds(28800);
 		}
@@ -1056,7 +1056,16 @@ if (typeof($) === "undefined") {
 	 * @return {String} 时间格式字符串
 	 */
 	String.prototype.toTimeFormat = function(format) {
-		var str = this.replace('T', ' ').replace('Z', '').replaceAll('-', '/');
+		var str = this;
+		return str.toTime().toStr(format);
+	};
+	/**
+	 * @description 转为时间格式字符串
+	 * @param {String} format 转换的格式
+	 * @return {String} 时间格式字符串
+	 */
+	String.prototype.toTimeStr = function(format) {
+		var str = this;
 		return str.toTime().toStr(format);
 	};
 
