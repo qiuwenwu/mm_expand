@@ -539,7 +539,8 @@ if (typeof($) === "undefined") {
 		// 当前系统路径使用的斜杠
 		slash: slash,
 		// 系统跟目录
-		rootPath, rootPath,
+		rootPath,
+		rootPath,
 		// 运行根目录
 		runPath: process.cwd() + slash,
 		// 延迟
@@ -684,18 +685,22 @@ if (typeof($) === "undefined") {
 	 * @return {String} 时间格式字符串
 	 */
 	Date.prototype.toStr = function(format) {
+		var t = this;
+		if (format.endsWith('Z')) {
+			t = t.addSeconds(-28800);
+		}
 		var o = {
-			"M+": this.getMonth() + 1,
-			"d+": this.getDate(),
-			"h+": this.getHours(),
-			"m+": this.getMinutes(),
-			"s+": this.getSeconds(),
-			"q+": Math.floor((this.getMonth() + 3) / 3),
-			"S": this.getMilliseconds()
+			"M+": t.getMonth() + 1,
+			"d+": t.getDate(),
+			"h+": t.getHours(),
+			"m+": t.getMinutes(),
+			"s+": t.getSeconds(),
+			"q+": Math.floor((t.getMonth() + 3) / 3),
+			"S": t.getMilliseconds()
 		};
 		if (/(y+)/.test(format)) {
 			var x = RegExp.$1;
-			format = format.replace(x, (this.getFullYear() + "").substr(4 - x.length));
+			format = format.replace(x, (t.getFullYear() + "").substr(4 - x.length));
 		}
 		for (var k in o) {
 			if (new RegExp("(" + k + ")").test(format)) {
@@ -878,7 +883,7 @@ if (typeof($) === "undefined") {
 		arr.func(function(o) {
 			var ar = o.split('=');
 			if (ar.length > 1) {
-				obj[ar[0]] = decodeURI(ar[1]);
+				obj[ar[0]] = decodeURIComponent(ar[1]);
 			} else {
 				obj[ar[0]] = null;
 			}
@@ -1038,18 +1043,23 @@ if (typeof($) === "undefined") {
 		}
 	};
 	/**
-	 * @description 转为时间对象
-	 * @return {Date} 时间对象
+	 * @description  转为时间对象
+	 * @return {Date} 返回时间对象类型
 	 */
 	String.prototype.toTime = function() {
 		var str = this;
 		var time;
 		if (str.indexOf('T') !== -1) {
-			str = this.replace('T', ' ').replace('Z', '').replaceAll('-', '/');
-			time = new Date(str).addSeconds(28800);
-		}
-		else {
-			str = this.replaceAll('-', '/');
+			// str = this.replace('T', ' ').replaceAll('-', '/');
+			str = this.replace('T', ' ');
+			if (str.indexOf('Z') !== -1) {
+				str = str.replace('Z', '');
+				time = (new Date(str)).addSeconds(28800);
+			} else {
+				time = new Date(str);
+			}
+		} else {
+			// str = this.replaceAll('-', '/');
 			time = new Date(str);
 		}
 		return time;

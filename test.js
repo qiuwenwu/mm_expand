@@ -1,24 +1,52 @@
 require('./index.js');
 
-// console.log($.rootPath);
-console.log("./fast/log".fullname(__dirname));
-console.log("./fast/log".fullname());
-console.log("./fast/log/".fullname());
-console.log("fast/log".fullname(__dirname));
-console.log("fast/log".fullname());
-console.log("fast/log/".fullname());
-console.log("../fast/log".fullname(__dirname));
-console.log("../fast/log".fullname());
-console.log("/fast/log".fullname(__dirname));
-console.log("/fast/log".fullname());
-console.log("/fast/log/".fullname());
-console.log("/fast/log.lgo".fullname());
-console.log("/fast/log.lgo\\".fullname());
-console.log("E:\\github\\mm_modules\\mm_expand\\fast\\log\\".fullname(__dirname));
-console.log("E:\\github\\mm_modules\\mm_expand\\fast\\log\\".fullname());
-console.log("E:\\github\\mm_modules\\mm_expand\\fast\\log".fullname());
 
-console.log("/fast/log.lgo\\log".fullname());
+var now = new Date();
+var str = now;
+console.log("时间", str);
+console.log("时间", str.toString());
+console.log("当前", new Date(str.toString()).toStr("yyyy-MM-dd hh:mm:ss"));
+
+var time = now.toStr('yyyy-MM-dd hh:mm:ss');
+console.log("当前", time);
+console.log("时间", time.toTime().toStr("yyyy-MM-dd hh:mm:ss"));
+console.log("当前", new Date(time).toStr("yyyy-MM-dd hh:mm:ss"));
+
+var time = now.toStr("yyyy-MM-ddThh:mm");
+console.log("当前", time);
+console.log("时间", time.toTime().toStr("yyyy-MM-dd hh:mm:ss"));
+
+
+var time = now.toStr("yyyy-MM-ddThh:mm:ss.000Z");
+console.log("当前", time);
+console.log("时间", time.toTime().addSeconds(28800).toStr("yyyy-MM-dd hh:mm:ss"));
+
+var json = {
+	now
+};
+var jtime = JSON.stringify(json);
+console.log("时间", jtime);
+console.log("时间", (jtime.toJson()).now.toTime().toStr("yyyy-MM-dd hh:mm:ss"));
+
+// console.log($.rootPath);
+// console.log("./fast/log".fullname(__dirname));
+// console.log("./fast/log".fullname());
+// console.log("./fast/log/".fullname());
+// console.log("fast/log".fullname(__dirname));
+// console.log("fast/log".fullname());
+// console.log("fast/log/".fullname());
+// console.log("../fast/log".fullname(__dirname));
+// console.log("../fast/log".fullname());
+// console.log("/fast/log".fullname(__dirname));
+// console.log("/fast/log".fullname());
+// console.log("/fast/log/".fullname());
+// console.log("/fast/log.lgo".fullname());
+// console.log("/fast/log.lgo\\".fullname());
+// console.log("E:\\github\\mm_modules\\mm_expand\\fast\\log\\".fullname(__dirname));
+// console.log("E:\\github\\mm_modules\\mm_expand\\fast\\log\\".fullname());
+// console.log("E:\\github\\mm_modules\\mm_expand\\fast\\log".fullname());
+
+// console.log("/fast/log.lgo\\log".fullname());
 // var arr1 = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 
 // var arr1 = [{
